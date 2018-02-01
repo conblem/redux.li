@@ -1,0 +1,21 @@
+{
+  "name": "redux.li",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "jest --coverage",
+    "jest": "jest --watch"
+  },
+  "author": "conblem",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^22.1.1",
+    "jest": "^22.1.4",
+    "redux-thunk": "^2.2.0"
+  },
+  "dependencies": {
+    "redux": "^3.7.2"
+  }
+}
