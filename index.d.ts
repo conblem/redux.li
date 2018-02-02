@@ -1,4 +1,6 @@
-import { Store, Reducer, Middleware } from 'redux'
+/// <reference types="jest" />
+
+import { Store, Reducer, Middleware } from "redux"
 
 declare global {
     export namespace jest {
@@ -14,13 +16,10 @@ declare global {
 }
 
 declare namespace reduxLi {
-    interface MockStore<T> extends Store<T> {
-        getActions(): any[]
-        clearActions()
-    }
     function createStore(reducer: Reducer<any>, initialState?: any)
-    function getStore(): MockStore<any>
     function applyMiddlewaresToStore(...middlewares: Middleware[])
+    function clearActions()
+    const matchers: jasmine.CustomMatcherFactories
 }
 
 export = reduxLi
