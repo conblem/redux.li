@@ -9,7 +9,8 @@
     "lint": "eslint **/*.js",
     "test": "jest --coverage && codecov",
     "jest": "jest --watch",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "greenkeeper": "greenkeeper-lockfile-update && greenkeeper-lockfile-upload"
   },
   "author": "conblem",
   "license": "MIT",
@@ -37,6 +38,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
+    "greenkeeper-lockfile": "^1.13.2",
     "husky": "^0.14.3",
     "jest": "^22.1.4",
     "lint-staged": "^6.1.0",
