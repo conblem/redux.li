@@ -6,6 +6,7 @@
   "types": "index.d.ts",
   "scripts": {
     "precommit": "lint-staged",
+    "lint": "eslint **/*.js",
     "test": "jest --coverage",
     "jest": "jest --watch"
   },

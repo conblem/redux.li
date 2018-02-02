@@ -8,19 +8,19 @@ const matchers = {
       callbackOrExpectedActions = clearActions,
       expectedState
     ) {
-      if (typeof callbackOrExpectedActions !== "function") {
-        const expectedActions = callbackOrExpectedActions;
-        callbackOrExpectedActions = (actions, state) => {
-          expect(expectedActions).toEqual(actions);
-          expectedState && expect(expectedState).toEqual(state);
-          clearActions();
-        };
-      }
+      const callback =
+        typeof callbackOrExpectedActions === "function"
+          ? callbackOrExpectedActions
+          : (actions, state) => {
+              expect(callbackOrExpectedActions).toEqual(actions);
+              if (expectedState) {
+                expect(expectedState).toEqual(state);
+              }
+              clearActions();
+            };
 
       Promise.resolve(getStore().dispatch(actual))
-        .then(() =>
-          callbackOrExpectedActions(getActions(), getStore().getState())
-        )
+        .then(() => callback(getActions(), getStore().getState()))
         .then(done)
         .catch(done.fail);
 
