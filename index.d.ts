@@ -6,9 +6,6 @@ declare global {
   export namespace jest {
     type DispatchCallback = () => void | Promise<any>;
     interface Matchers<R> {
-      /**
-       * clearActions needs to be manually called
-       */
       toDispatch(done: DoneCallback, callback: DispatchCallback);
       toDispatch(
         done: DoneCallback,
