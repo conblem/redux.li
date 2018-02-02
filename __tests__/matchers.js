@@ -1,46 +1,37 @@
 const thunk = require("redux-thunk").default
 
-const { matchers, createStore, getStore, applyMiddlewaresToStore } = require("../src/")
+const { matchers, createStore, getStore, applyMiddlewaresToStore, clearActions } = require("../src/")
 
-describe("matchers", () => {
-    let store
+describe("matcher", () => {
     beforeEach(() => {
         jasmine.addMatchers(matchers)
         createStore((state = {}) => state, { message: "HALLO" })
         applyMiddlewaresToStore(thunk)
-        store = getStore()
     })
-    it("should dispatch actions", done => {
-        expect({ type: "TEST" }).toDispatchActions([{ type: "TEST" }], done)
-
+    it("should toDispatch with callback", done => {
         const asyncAction = dispatch => Promise.resolve()
             .then(() => dispatch({ type: "TEST2" }))
 
-        expect(asyncAction).toDispatchActions([{ type: "TEST2" }], done)
-    })
-    it("should dispatch actions and state", done => {
-        expect({ type: "TEST" }).toDispatchActionsWithState({
-            message: "HALLO"
-        }, [
-            { type: "TEST"}
-        ], done)
-    })
-    it("should dispatch", done => {
-        const store = getStore();
-
-        const asyncAction = dispatch => Promise.resolve()
-            .then(() => dispatch({ type: "TEST2" }))
-
-        expect(asyncAction).dispatch(async () => {
+        expect(asyncAction).toDispatch(done, async (actions, state) => {
             await Promise.resolve()
-            expect(store.getActions()).toEqual([{ type: "TEST2" }])
-            expect(store.getState()).toEqual({ message: "HALLO" })
-            store.clearActions()
-        }, done)
-
-        expect({ type: "HOLA_ACTION" }).dispatch(() => {
-            expect(store.getActions()).toEqual([{ type: "HOLA_ACTION" }])
-            store.clearActions()
-        }, done)
+            expect(actions).toEqual([{ type: "TEST2" }])
+            expect(state).toEqual({ message: "HALLO" })
+            clearActions()
+        })
+    })
+    it("should toDispatch empty", done => {
+        expect({ type: "TEST3" }).toDispatch(done)
+    })
+    it("should toDispatch with action", done => {
+        expect({ type: "TEST3" }).toDispatch(done, [
+            { type: "TEST3" }
+        ])
+    })
+    it("should toDispatch with action and state", done => {
+        expect({ type: "TEST3" }).toDispatch(done, [
+            { type: "TEST3" }
+        ], {
+            message: "HALLO"
+        })
     })
 })

@@ -3,9 +3,10 @@ const { createStore: reduxCreateStore, applyMiddleware } = require("redux")
 let store
 let reducer
 let initialState
+let actions = []
 
 const actionMiddleware = () => next => action => {
-    store.getActions().push(action)
+    actions.push(action)
     return next(action)
 }
 
@@ -14,10 +15,6 @@ function createStore(newReducer, newState = {}, middlewares = []) {
     reducer = newReducer
 
     store = reduxCreateStore(reducer, initialState, applyMiddleware(...middlewares, actionMiddleware))
-
-    let actions = []
-    store.getActions = () => actions
-    store.clearActions = () => actions = []
 }
 
 function applyMiddlewaresToStore(...middlewares) {
@@ -28,8 +25,18 @@ function getStore() {
     return store
 }
 
+function getActions() {
+    return actions
+}
+
+function clearActions() {
+    actions = []
+}
+
 module.exports = {
     createStore,
     getStore,
-    applyMiddlewaresToStore
+    applyMiddlewaresToStore,
+    getActions,
+    clearActions
 }

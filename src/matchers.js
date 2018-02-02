@@ -1,37 +1,19 @@
-const { getStore } = require("./store")
+const { getStore, getActions, clearActions } = require("./store")
 
 const matchers = {
-    toDispatchActions: () => ({
-        compare(actual, expected, done) {
-            const store = getStore()
+    toDispatch: () => ({
+        compare(actual, done, callbackOrExpectedActions = clearActions, expectedState) {
+            if(typeof callbackOrExpectedActions !== "function") {
+                const expectedActions = callbackOrExpectedActions
+                callbackOrExpectedActions = (actions, state) => {
+                    expect(expectedActions).toEqual(actions)
+                    expectedState && expect(expectedState).toEqual(state)
+                    clearActions()
+                }
+            }
 
-            matchers.dispatch().compare(actual, () => {
-                expect(store.getActions()).toEqual(expected)
-                store.clearActions()
-            }, done)
-
-            return { pass: true }
-        }
-    }),
-    toDispatchActionsWithState: () => ({
-        compare(actual, expectedState, expectedActions, done) {
-            const store = getStore()
-
-            matchers.dispatch().compare(actual, () => {
-                expect(store.getActions()).toEqual(expectedActions)
-                expect(store.getState()).toEqual(expectedState)
-                store.clearActions()
-            }, done)
-
-            return { pass: true }
-        }
-
-    }),
-    dispatch: () => ({
-        compare(actual, callback, done) {
-            const store = getStore()
-            Promise.resolve(store.dispatch(actual))
-                .then(callback)
+            Promise.resolve(getStore().dispatch(actual))
+                .then(() => callbackOrExpectedActions(getActions(), getStore().getState()))
                 .then(done)
                 .catch(done.fail)
 

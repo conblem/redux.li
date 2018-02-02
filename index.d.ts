@@ -2,11 +2,13 @@ import { Store, Reducer, Middleware } from 'redux'
 
 declare global {
     export namespace jest {
-        type DispatchCallback = (() => void) | (() => Promise<any>)
+        type DispatchCallback = () => (void | Promise<any>)
         interface Matchers<R> {
-            toDispatchActions(expected: any[], done: DoneCallback)
-            toDispatchActionsWithState(expectedState: any, expectedActions: any[], done: DoneCallback)
-            dispatch(expected: DispatchCallback, done: DoneCallback)
+            /**
+             * clearActions needs to be manually called
+             */
+            toDispatch(done: DoneCallback, callback: DispatchCallback)
+            toDispatch(done: DoneCallback, expectedActions?: any, expectedState?: any)
         }
     }
 }

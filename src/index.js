@@ -1,7 +1,9 @@
-const store = require("./store")
+const { createStore, applyMiddlewaresToStore, clearActions } = require("./store")
 const matchers = require("./matchers")
 
 module.exports = {
-    ...store,
+    createStore,
+    applyMiddlewaresToStore,
+    clearActions,
     matchers
 }
