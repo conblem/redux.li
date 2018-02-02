@@ -1,6 +1,6 @@
 const thunk = require("redux-thunk").default;
 
-const { createStore, applyMiddlewaresToStore } = require("../src/");
+const { setReducer, setInitialState, setMiddlewares } = require("../src/");
 const matchers = require("../src/matchers");
 
 describe("store", () => {
@@ -10,18 +10,26 @@ describe("store", () => {
         return state;
     }
   };
+  beforeAll(() => {
+    setReducer(rootReducer);
+    setInitialState({ message: "HALLO" });
+    setMiddlewares(thunk);
+  });
 
   beforeEach(() => {
     jasmine.addMatchers(matchers);
-    createStore(rootReducer);
   });
 
   it("should add middleware", done => {
     const asycAction = dispatch =>
       Promise.resolve().then(() => dispatch({ type: "HALLO" }));
 
-    applyMiddlewaresToStore(thunk);
-
     expect(asycAction).toDispatch(done);
+  });
+
+  it("should have initialState", done => {
+    expect({ type: "TEST" }).toDispatch(done, (actions, state) => {
+      expect(state).toEqual({ message: "HALLO" });
+    });
   });
 });

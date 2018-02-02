@@ -1,13 +1,9 @@
-const {
-  createStore,
-  applyMiddlewaresToStore,
-  clearActions
-} = require("./store");
+const { setInitialState, setMiddlewares, setReducer } = require("./store");
 const matchers = require("./matchers");
 
 module.exports = {
-  createStore,
-  applyMiddlewaresToStore,
-  clearActions,
+  setInitialState,
+  setMiddlewares,
+  setReducer,
   matchers
 };

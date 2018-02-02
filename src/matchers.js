@@ -1,13 +1,8 @@
-const { getStore, getActions, clearActions } = require("./store");
+const { createStore } = require("./store");
 
 const matchers = {
   toDispatch: () => ({
-    compare(
-      actual,
-      done,
-      callbackOrExpectedActions = clearActions,
-      expectedState
-    ) {
+    compare(actual, done, callbackOrExpectedActions = () => {}, expectedState) {
       const callback =
         typeof callbackOrExpectedActions === "function"
           ? callbackOrExpectedActions
@@ -16,11 +11,12 @@ const matchers = {
               if (expectedState) {
                 expect(expectedState).toEqual(state);
               }
-              clearActions();
             };
 
-      Promise.resolve(getStore().dispatch(actual))
-        .then(() => callback(getActions(), getStore().getState()))
+      const { store, actions } = createStore();
+
+      Promise.resolve(store.dispatch(actual))
+        .then(() => callback(actions, store.getState()))
         .then(done)
         .catch(done.fail);
 

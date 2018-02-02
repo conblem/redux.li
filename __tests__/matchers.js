@@ -1,17 +1,14 @@
 const thunk = require("redux-thunk").default;
 
-const {
-  matchers,
-  createStore,
-  applyMiddlewaresToStore,
-  clearActions
-} = require("../src/");
+const { matchers, setMiddlewares, setInitialState } = require("../src/");
 
 describe("matcher", () => {
+  beforeAll(() => {
+    setMiddlewares(thunk);
+    setInitialState({ message: "HALLO" });
+  });
   beforeEach(() => {
     jasmine.addMatchers(matchers);
-    createStore((state = {}) => state, { message: "HALLO" });
-    applyMiddlewaresToStore(thunk);
   });
   it("should toDispatch with callback", done => {
     const asyncAction = dispatch =>
@@ -21,7 +18,6 @@ describe("matcher", () => {
       await Promise.resolve();
       expect(actions).toEqual([{ type: "TEST2" }]);
       expect(state).toEqual({ message: "HALLO" });
-      clearActions();
     });
   });
   it("should toDispatch empty", done => {

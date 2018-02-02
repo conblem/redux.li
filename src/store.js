@@ -1,46 +1,39 @@
 const { createStore: reduxCreateStore, applyMiddleware } = require("redux");
 
-let store;
-let reducer;
-let initialState;
-let actions = [];
+let initialState = {};
+let reducer = (state = initialState) => state;
+let middlewares = [];
 
-const actionMiddleware = () => next => action => {
+const actionMiddleware = actions => () => next => action => {
   actions.push(action);
   return next(action);
 };
 
-function createStore(newReducer, newState = {}, middlewares = []) {
-  initialState = newState;
-  reducer = newReducer;
-
-  store = reduxCreateStore(
+function createStore() {
+  const actions = [];
+  const store = reduxCreateStore(
     reducer,
     initialState,
-    applyMiddleware(...middlewares, actionMiddleware)
+    applyMiddleware(...middlewares, actionMiddleware(actions))
   );
+  return { store, actions };
 }
 
-function applyMiddlewaresToStore(...middlewares) {
-  createStore(reducer, initialState, middlewares);
+function setMiddlewares(...newMiddlewares) {
+  middlewares = newMiddlewares;
 }
 
-function getStore() {
-  return store;
+function setInitialState(newInitialState) {
+  initialState = newInitialState;
 }
 
-function getActions() {
-  return actions;
-}
-
-function clearActions() {
-  actions = [];
+function setReducer(newReducer) {
+  reducer = newReducer;
 }
 
 module.exports = {
   createStore,
-  getStore,
-  applyMiddlewaresToStore,
-  getActions,
-  clearActions
+  setInitialState,
+  setReducer,
+  setMiddlewares
 };
