@@ -2,7 +2,7 @@ import { Store, Reducer, Middleware } from 'redux'
 
 declare global {
     export namespace jest {
-        type DispatchCallback = () => (void | Promise<any>)
+        type DispatchCallback = () => void | Promise<any>
         interface Matchers<R> {
             /**
              * clearActions needs to be manually called
