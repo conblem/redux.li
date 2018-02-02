@@ -1,6 +1,6 @@
 {
   "name": "redux.li",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "src/index.js",
   "types": "index.d.ts",
@@ -8,7 +8,8 @@
     "precommit": "lint-staged",
     "lint": "eslint **/*.js",
     "test": "jest --coverage && codecov",
-    "jest": "jest --watch"
+    "jest": "jest --watch",
+    "semantic-release": "semantic-release"
   },
   "author": "conblem",
   "license": "MIT",
@@ -40,9 +41,14 @@
     "jest": "^22.1.4",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "semantic-release": "^12.4.1"
   },
   "dependencies": {
     "redux": "^3.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conblem/redux.li.git"
   }
 }

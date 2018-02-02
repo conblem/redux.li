@@ -17,3 +17,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+      - run:
+          name: npm publish
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn semantic-release
+            fi
