@@ -3,7 +3,6 @@ const thunk = require("redux-thunk").default;
 const {
   matchers,
   createStore,
-  getStore,
   applyMiddlewaresToStore,
   clearActions
 } = require("../src/");
