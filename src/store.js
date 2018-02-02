@@ -1,7 +1,7 @@
 const { createStore: reduxCreateStore, applyMiddleware } = require("redux");
 
-let initialState = {};
-let reducer = (state = initialState) => state;
+let initialState;
+let reducer = Object;
 let middlewares = [];
 
 const actionMiddleware = actions => () => next => action => {
