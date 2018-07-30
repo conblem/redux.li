@@ -46,7 +46,7 @@
     "lint-staged": "^7.0.0",
     "prettier": "^1.10.2",
     "redux-thunk": "^2.2.0",
-    "semantic-release": "^15.1.7"
+    "semantic-release": "^15.9.2"
   },
   "dependencies": {
     "redux": "^3.7.2"
