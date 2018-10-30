@@ -97,9 +97,9 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@types/jest@^23.0.0":
-  version "23.0.0"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.0.0.tgz#760cac74f00bb9c3075587716d2b3b4435663bc0"
+"@types/jest@^23.3.9":
+  version "23.3.9"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.9.tgz#c16b55186ee73ae65e001fbee69d392c51337ad1"
 
 JSONStream@^1.0.4, JSONStream@~1.3.1:
   version "1.3.2"
