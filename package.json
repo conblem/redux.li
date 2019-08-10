@@ -33,7 +33,7 @@
     "@types/jest": "^23.0.0",
     "codecov": "^3.0.0",
     "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb": "^18.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
